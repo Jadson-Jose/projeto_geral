@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Controllers;
+
 use CodeIgniter\Controller;
+use App\Models\UsersModel;
 
 class Users extends BaseController
 {
@@ -57,6 +59,10 @@ class Users extends BaseController
             }
 
             // check database
+            if($error == '')
+            {
+                $model = new UsersModel();
+            }
         }
 
         if($error != ''){
