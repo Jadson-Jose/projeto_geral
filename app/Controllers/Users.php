@@ -62,6 +62,7 @@ class Users extends BaseController
             if($error == '')
             {
                 $model = new UsersModel();
+                $model->teste();
             }
         }
 
