@@ -11,11 +11,22 @@ class UsersModel extends Model
         $this->db = db_connect();
     }
 
-    public function teste()
+    public function verifyLogin($username, $password)
     {
+        $params = array(
+            $username,
+            $password
+        );
+
+        $query = "SELECT * FROM users WHERE username = ? AND passwrd = ?";
+
         $db = db_connect();
-        $results = $this->db->query("SELECT * FROM  users")->getResult('array');
-        echo $results[0]['username']. ' - ' . $results[0]['passwrd'];
-        exit();
+        $results = $this->db->query($query, $params)->getResult('array');
+
+        if(\count($results) == 0){
+            return false;
+        } else {
+            return true;
+        }
     }
 }
