@@ -125,7 +125,15 @@ class Users extends BaseController
         echo view ('users/homepage');
     }
     
-    
+    //========================================================================
+    public function logout()
+    {
+        // logout
+        $this->session->destroy();
+        return redirect()->to(site_url('users'));
+    } 
+   
+   
     //========================================================================
     private function checkSession()
     {

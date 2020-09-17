@@ -8,4 +8,6 @@ $session = session();
 
 <div>Olá, <?php echo $session->name ?></div>
 
+<a href="<?php echo site_url('users/logout') ?>">Logout</a>
+
 <?php $this->endSection() ?>

@@ -23,9 +23,18 @@ class UsersModel extends Model
         $db = db_connect();
         $results = $this->db->query($query, $params)->getResult('array');
 
-        if(\count($results) == 0){
+        if(count($results) == 0){
             return false;
         } else {
+
+            // update last_login in the database
+            $params = array 
+            (
+                $results[0]['id_user']
+            );
+            $this->db->query("UPDATE users SET last_login = NOW() WHERE id_user = ? ", $params);
+            
+            // return valid login
             return $results[0];
         }
     }
