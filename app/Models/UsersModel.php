@@ -26,7 +26,7 @@ class UsersModel extends Model
         if(\count($results) == 0){
             return false;
         } else {
-            return true;
+            return $results[0];
         }
     }
 }

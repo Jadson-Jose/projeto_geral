@@ -8,7 +8,7 @@ use App\Models\UsersModel;
 class Users extends BaseController
 {
 
-    private $session;
+    protected $session;
 
     //========================================================================
     public function __construct()
@@ -23,6 +23,7 @@ class Users extends BaseController
         // check if there is an active session
         if($this->checkSession()){
             // active session
+            $this->homePage();
         }else {
             // show login form
             $this->login();
@@ -43,6 +44,13 @@ class Users extends BaseController
          *      - se não existir: apresentar formulário de login com erro
          * 
         */
+
+        // check if session exists (if yes go to homepage)
+        if($this->checkSession())
+        {
+            $this->homePage();
+            return;
+        }
        
        
         $error = "";
@@ -64,14 +72,15 @@ class Users extends BaseController
                 $model = new UsersModel();
                 $result = $model->verifyLogin($username, $password);
 
-                if($result){
+                if(is_array($result)){
                     // valid login
-                    echo 'OK';
+                    $this->setSession($result);
+                    $this->homePage();
+                    return;
                 } else {
                     // invalid login
-                    echo "NOT OK";
+                    $error = 'Login iválido';
                 }
-                exit();
             }
 
         }
@@ -87,6 +96,34 @@ class Users extends BaseController
         echo view('users/login', $data); 
     }
     
+    
+    //========================================================================
+    private function setSession($data)
+    {
+        // init session
+        $session_data = array
+        (
+            'id_user' => $data['id_user'],
+            'name' => $data['name']
+        );
+
+        $this->session->set($session_data);
+
+    }
+
+    //========================================================================
+    public function homePage()
+    {
+        // check if session exists
+        if(!$this->checkSession())
+        {
+            $this->login();
+            return;
+        }
+
+        // show homepage view
+        echo view ('users/homepage');
+    }
     
     
     //========================================================================
