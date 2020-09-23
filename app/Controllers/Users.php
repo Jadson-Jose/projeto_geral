@@ -33,17 +33,6 @@ class Users extends BaseController
     //========================================================================
     public function login(){
        
-       
-        /**
-         *  Verifica se houve submissão
-         * 
-         *  Se houve submissão:
-         *      - Verifica se os campos estão preechidos
-         *      - perguntar ao banco de dados se existe username e password
-         *      - se existir: abrir sessão e enviar para o menu inicial
-         *      - se não existir: apresentar formulário de login com erro
-         * 
-        */
 
         // check if session exists (if yes go to homepage)
         if($this->checkSession())
@@ -146,6 +135,25 @@ class Users extends BaseController
     {
         // shows form to recover password
         echo view ('users/recover_password');
+    }
+
+    //========================================================================
+    public function reset_password()
+    {
+        // reset users password
+        // redefines the password and sends by email
+
+        /**
+         * 1. Verifica se existe algum utilizador com registro (email inserido)
+         * 2. Caso exista utlizador, altera a sua password (random)
+         * 3. "Envia" uma mensagem com a nova passwoard
+         */
+        $request = \Config\Services::request();
+        $email = $request->getPost('text_email');
+
+        // Verifies if there is a user with this email
+        $users = new UsersModel();
+        $users->resetPassword($email);
     }
 
 }
