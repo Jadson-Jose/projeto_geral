@@ -81,11 +81,77 @@ class UsersModel extends Model
         }
     }
 
+    
     //=========================================================================
-    private function randomPassword()
+    public function checkEmail($email)
+    {
+        // checks is the email is from a users's account
+        $params = array
+        (
+            $email
+        );
+        $query = "SELECT id_user FROM users WHERE email = ?";
+        return $this->db->query($query, $params)->getResult('array');
+    }
+
+    //=========================================================================
+    public function sendPurl($email, $id_user)
+    {
+        /**
+         * 1. Gerar um código purl e guardar na db > FEITO
+         * 2. Envia uma mensagem com o link do purl
+         */
+        $purl = $this->randomPassword(6);
+        $params = array (
+            $purl,
+            $id_user
+        );
+        $query = "UPDATE users SET purl = ? WHERE id_user = ?";
+        $this->db->query($query, $params);
+
+        // envio do email
+        echo '(Mensagem de email) Link para redefinir a sua password: ';
+        echo '<a href="'.site_url('users/redefine_password/' . $purl).'">Redefinir password</a>';
+    }
+    
+    //=========================================================================
+    public function getPurl($purl)
+    {
+        // returns the row with the given purl
+        $params = array (
+            $purl
+        );
+        $query = "SELECT id_user FROM users WHERE purl = ?";
+        return $this->db->query($query, $params)->getResult('array');
+    }
+
+    //=========================================================================
+    public function redefinePassword($id, $pass)
+    {
+        // update the user's password
+        $params = array (
+            $pass,
+            $id
+        );
+        $query = "UPDATE users SET passwrd = ? WHERE id_user = ?";
+        $this->db->query($query, $params);
+
+
+        // remove the purl from the user
+        $params = array(
+            $id
+        );
+        $this->db->query("UPDATE users SET purl = '' WHERE id_user = ?", $params);
+    }
+
+    //=========================================================================
+    private function randomPassword($numChars = 8)
     {
         // generates a random password
         $chars = 'abcdefghijklmnopqwxyzABCDEFGHIJKLMNOPQWXYZ0123456789abcdefghijklmnopqwxyzABCDEFGHIJKLMNOPQWXYZ0123456789abcdefghijklmnopqwxyzABCDEFGHIJKLMNOPQWXYZ0123456789';
-        return substr(str_shuffle($chars),0,8);
+        return substr(str_shuffle($chars),0,$numChars);
     }
 }
+
+
+// http://localhost/projeto_geral/public/index.php/users/redefine_password/Odp1I3
