@@ -93,7 +93,8 @@ class Users extends BaseController
         $session_data = array
         (
             'id_user' => $data['id_user'],
-            'name' => $data['name']
+            'name' => $data['name'],
+            'profile' => $data['profile']
         );
 
         $this->session->set($session_data);
@@ -110,6 +111,13 @@ class Users extends BaseController
             return;
         }
 
+        // check profile
+        if($this->checkProfile('admin')){
+            echo 'Sou admin';
+        } else {
+            echo 'Não sou admin';
+        }
+
         // show homepage view
         echo view ('users/homepage');
     }
@@ -123,13 +131,6 @@ class Users extends BaseController
     } 
    
    
-    //========================================================================
-    private function checkSession()
-    {
-        // check if session exists
-        return $this->session->has('id_user');
-    }
-
     //========================================================================
     public function recover()
     {
@@ -229,6 +230,38 @@ class Users extends BaseController
             $users = new UsersModel();
             $users->redefine_password($id_user, $nova_password);
         }
-     }
+    }
+
+    
+    public function teste($value) {
+        if($this->checkProfile($value)) {
+            echo 'Existe';
+        } else {
+            echo 'Não existe';
+        }
+    }
+
+    
+    
+    //========================================================================
+    // PRIVATE
+    //========================================================================
+    private function checkSession()
+    {
+        // check if session exists
+        return $this->session->has('id_user');
+    }
+
+    //========================================================================
+    private function checkProfile($profile)
+    {
+        // check if the user has permission to access feature
+        if( preg_match ("/$profile/", $this->session->profile)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 ?>
