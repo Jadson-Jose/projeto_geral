@@ -111,15 +111,15 @@ class Users extends BaseController
             return;
         }
 
-        // check profile
-        if($this->checkProfile('admin')){
-            echo 'Sou admin';
-        } else {
-            echo 'Não sou admin';
+        //check id user is admin
+        $data = array();
+        if($this->checkProfile("admin")) {
+            $data['admin'] = true;
         }
 
+
         // show homepage view
-        echo view ('users/homepage');
+        echo view ('users/homepage', $data);
     }
     
     //========================================================================
@@ -261,6 +261,28 @@ class Users extends BaseController
         } else {
             return false;
         }
+    }
+
+    //========================================================================
+    public function op1()
+    {
+        echo 'op1';
+    }
+
+    //========================================================================
+    public function op2()
+    {
+        echo 'op2';
+    }
+
+    //========================================================================
+    public function admin_users()
+    {
+        // check if the user has permission
+        if($this->checkProfile('admin') == false) {
+            return redirect()->to(\site_url('users'));
+        }
+        echo 'admintração de utilizadores';
     }
 
 }
