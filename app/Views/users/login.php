@@ -2,6 +2,8 @@
 
 <?php $this->section('conteudo') ?>
 
+<?php echo view('users/userbar') ?>
+
 <div class="row mt-3 mb-3">
     <div class="col-4 offset-4 card bg-light p-3">
 
