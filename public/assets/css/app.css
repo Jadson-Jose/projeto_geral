@@ -1,8 +1,8 @@
-* {
+/* * {
     --webkit-box-shadow: inset 0px 0px 0px 1px rgba(200, 200, 200, 0.3);
     --webkit-box-shadow: inset 0px 0px 0px 1px rgba(200, 200, 0, 0.3);
     box-shadow: inset 0px 0px 0px 1px rgba(200, 200, 200, 0.3);
-}
+} */
 
 /* buttons */
 

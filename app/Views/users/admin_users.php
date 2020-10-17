@@ -7,12 +7,12 @@ $s = session();
 
 <?php $this->section('conteudo') ?>
 
-    <div><a href="" class="btn btn-primary">Novo utilizador...</a></div>
+    <div class= "mt-2 mb-2"><a href="" class="btn btn-primary">Novo utilizador...</a></div>
         
         <div>
         
-            <table>
-                <thead>
+            <table class = "table table-striped">
+                <thead class = "thead-dark">
                     <th></th>
                     <th>Username</th>
                     <th>Nome</th>
@@ -26,7 +26,11 @@ $s = session();
                 <tbody>
                     <?php foreach($users as $user) : ?>
                         <tr>
-                            <td>ed | el</td>
+                            <!-- editar e eliminar -->
+                            <td>
+                                <a href="" class= "btn btn-primary btn-sm "><i class = "fa fa-pencil"></i></a>
+                            </td>
+                            
                             <td><?php echo $user['username'] ?></td>
                             <td><?php echo $user['name'] ?></td>
                             <td><?php echo $user['email'] ?></td>
