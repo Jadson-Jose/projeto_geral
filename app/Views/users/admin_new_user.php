@@ -16,12 +16,15 @@
     <!-- formulário para novo user -->
     <h2>Adicionar novo user</h2>
     
-    <form action="">
+    <form action="" method ="post">
         
-        <p><input type="text" name="text_username"></p>
-        <p><input type="text" name="text_password"></p>
-        <p><input type="text" name="text_name"></p> 
-        <p><input type="text" name="text_email"></p>
+        <p><input type="text" name="text_username" placeholder="Username" required></p>
+        <p><input type="text" name="text_password" placeholder="Password" required></p>
+        <p><input type="text" name="text_password_repetir" placeholder="Repetir password" required></p>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-password">Gerar password</button>
+        
+        <p><input type="text" name="text_name" placeholder="Nome" required></p> 
+        <p><input type="text" name="text_email" placeholder="Email" required></p>
       
         <!-- profile -->
         <p>Profile</p>
