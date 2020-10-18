@@ -7,7 +7,7 @@ $s = session();
 
 <?php $this->section('conteudo') ?>
 
-    <div class= "mt-2 mb-2"><a href="" class="btn btn-primary">Novo utilizador...</a></div>
+    <div class= "mt-2 mb-2"><a href="<?php echo site_url('users/admin_new_user') ?>" class="btn btn-primary">Novo utilizador...</a></div>
         
         <div>
         

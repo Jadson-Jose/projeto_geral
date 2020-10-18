@@ -233,7 +233,8 @@ class Users extends BaseController
     }
 
     
-    public function teste($value) {
+    public function teste($value) 
+    {
         if($this->checkProfile($value)) {
             echo 'Existe';
         } else {
@@ -290,6 +291,28 @@ class Users extends BaseController
  
 
         echo view ('users/admin_users', $data);
+    }
+
+    //========================================================================
+    public function admin_new_user()
+    {
+        // adds a new to the database
+        $error = '';
+        $data = array();
+        $request = \Config\Services::request();
+
+        // if there was a submission
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // redirecionar para a tabela de utilizadores
+        }
+
+        // check if there is an error
+        if($error != ''){
+            $data['error'] = $error;
+        }
+
+        echo view ("users/admin_new_user", $data);
     }
 
 }
