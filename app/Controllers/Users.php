@@ -305,6 +305,39 @@ class Users extends BaseController
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // redirecionar para a tabela de utilizadores
+            $request = \Config\Services::request();
+            $dados = $request->getPost();
+
+            // verifica se vieram todos os dados corretos
+            if(
+                $dados['text_username'] == '' ||
+                $dados['text_password'] == '' ||
+                $dados['text_password_repetir'] == '' ||
+                $dados['text_name'] == '' ||
+                $dados['text_email'] == '' 
+            
+            ) {
+                $error = 'Preencha todos os campos de texto.';
+            }
+
+            // verificar se as passwords coincidem
+            if($error == '') {
+                if($dados['text_password'] != $dados['text_password_repetir']) {
+                    $error = 'As senhas são diferentes.';
+                }
+            }
+
+            // verifica se, pelo menos, uma check de perfil foi checkada
+            if(!isset($dados['check_admin']) &&
+                !isset($dados['check_moderator']) &&
+                !isset($dados['check_user'])) {
+                    $error = 'Indique pelo menos, um tipo de perfil.';
+                }
+            if($error == '') {
+                die('OK'); 
+            }
+
+           
         }
 
         // check if there is an error
