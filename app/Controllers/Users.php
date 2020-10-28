@@ -299,7 +299,7 @@ class Users extends BaseController
         // adds a new to the database
         $error = '';
         $data = array();
-        $request = \Config\Services::request();
+
 
         // if there was a submission
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -334,10 +334,12 @@ class Users extends BaseController
                     $error = 'Indique pelo menos, um tipo de perfil.';
                 }
             if($error == '') {
-                die('OK'); 
+                $model = new UsersModel();
+                $model->addNewUser();
+                
+                return redirect()->to(site_url('users/admin'));
             }
 
-           
         }
 
         // check if there is an error
@@ -347,6 +349,8 @@ class Users extends BaseController
 
         echo view ("users/admin_new_user", $data);
     }
+
+ 
 
 }
 ?>
