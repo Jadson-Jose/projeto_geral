@@ -39,7 +39,8 @@
         
         <div>
             <a href="<?php echo site_url('users/admin_users') ?>" class = "btn btn-secondary">Cancelar</a>
-            <button class = "btn btn-primary">Adicionar</button>
+   
+            <a href="<?php echo site_url('users/admin_users') ?>"><button class = "btn btn-primary">Adicionar</button></a> 
         </div>
     
     </form>

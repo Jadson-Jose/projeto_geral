@@ -281,7 +281,7 @@ class Users extends BaseController
     {
         // check if the user has permission
         if($this->checkProfile('admin') == false) {
-            return redirect()->to(\site_url('users'));
+            return redirect()->to(site_url('users'));
         }
 
         // buscar lista de utilizadores registrados
@@ -292,6 +292,7 @@ class Users extends BaseController
 
         echo view ('users/admin_users', $data);
     }
+
 
     //========================================================================
     public function admin_new_user()
@@ -327,18 +328,32 @@ class Users extends BaseController
                 }
             }
 
+            
             // verifica se, pelo menos, uma check de perfil foi checkada
-            if(!isset($dados['check_admin']) &&
-                !isset($dados['check_moderator']) &&
-                !isset($dados['check_user'])) {
+            if($error == '') {
+                if(!isset($dados['check_admin']) &&
+                   !isset($dados['check_moderator']) &&
+                   !isset($dados['check_user'])) {
                     $error = 'Indique pelo menos, um tipo de perfil.';
                 }
-            if($error == '') {
-                $model = new UsersModel();
-                $model->addNewUser();
-                
-                return redirect()->to(site_url('users/admin'));
             }
+
+
+            
+            // Verificar se já existe um user com o mesmo username ou email
+            $model = new UsersModel();
+            if($error == '') {
+                $result = $model->checkExistingUser();
+                if(count($result) != 0) {
+                    $error = "Já existe um utilizador com esses dados.";
+                }
+
+                if($error == '') {
+                    $model->addNewUser();
+                    return redirect()->to(site_url('users/admin_users'));
+                }
+            }
+            
 
         }
 

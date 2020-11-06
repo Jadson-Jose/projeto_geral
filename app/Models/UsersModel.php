@@ -160,6 +160,22 @@ class UsersModel extends Model
         return substr(str_shuffle($chars),0,$numChars);
     }
 
+    
+    //========================================================================
+    public function checkExistingUser()
+    {
+        // Verify is there is already an user with the same username or email address
+        $request = \Config\Services::request();
+        $dados = $request->getPost();
+
+        $params = array (
+            $dados['text_username'],
+            $dados['text_email']
+        );
+
+        return $this->db->query('SELECT id_user FROM users WHERE username = ? OR email = ?', $params)->getResult('array');
+    }
+
     //========================================================================
     public function addNewUser() {
         $request = \Config\Services::request();
