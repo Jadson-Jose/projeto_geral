@@ -7,7 +7,17 @@ $s = session();
 
 <?php $this->section('conteudo') ?>
 
-    <div class= "mt-2 mb-2"><a href="<?php echo site_url('users/admin_new_user') ?>" class="btn btn-primary">Novo utilizador...</a></div>
+    <div class="row">
+        <div class="col-6">
+            <div class= "mt-2 mb-2"><a href="<?php echo site_url('users/admin_new_user') ?>" class="btn btn-primary">Novo utilizador...</a></div>
+        </div>
+
+        <div class="col-6 text-right align-self-center">
+            <a href="<?php echo site_url('users') ?>" class="btn btn-danger"><i class="fa fa-times"></i></a>
+        </div>
+    </div>
+
+
         
         <div>
         
@@ -27,11 +37,18 @@ $s = session();
                     <?php foreach($users as $user) : ?>
                         <tr>
                             <!-- editar e eliminar -->
-                            <td>
-                                <a href="" class= "btn btn-primary btn-sm "><i class = "fa fa-pencil"></i></a>
-                                <a href="" class= "btn btn-danger btn-sm "><i class = "fa fa-trash"></i></a>
-                            </td>
+                            <?php if($s->id_user == $user['id_user']): ?>
+                                <td>
+                                   <span class= "btn btn-secondary btn-sm "><i class = "fa fa-pencil"></i></span>
+                                   <span class= "btn btn-secondary btn-sm "><i class = "fa fa-trash"></i></span>
+                                </td>
                             
+                            <?php else: ?>
+                                <td>
+                                    <a href="" class= "btn btn-primary btn-sm "><i class = "fa fa-pencil"></i></a>
+                                    <a href="" class= "btn btn-danger btn-sm "><i class = "fa fa-trash"></i></a>
+                                </td>
+                            <?php endif; ?>
                            
                             <td><?php echo $user['username'] ?></td>
                             <td><?php echo $user['name'] ?></td>
@@ -57,7 +74,7 @@ $s = session();
                             <?php if($user['deleted'] != 0) : ?>
                                 <td class = "text-center"><i class = "fa fa-check text-success"></i></td>
                             <?php else : ?>
-                                <td class = "text-center"><i class = "fa fa-check text-danger"></i></td>
+                                <td class = "text-center"><i class = "fa fa-times text-danger"></i></td>
                             <?php endif ; ?>
     
                         </tr>

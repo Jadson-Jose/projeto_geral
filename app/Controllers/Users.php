@@ -334,7 +334,7 @@ class Users extends BaseController
                 if(!isset($dados['check_admin']) &&
                    !isset($dados['check_moderator']) &&
                    !isset($dados['check_user'])) {
-                    $error = 'Indique pelo menos, um tipo de perfil.';
+                   $error = 'Indique pelo menos, um tipo de perfil.';
                 }
             }
 

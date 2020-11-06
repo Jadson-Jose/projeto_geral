@@ -199,9 +199,9 @@ class UsersModel extends Model
         
         $params = array(
             $dados['text_username'],
-            $dados['text_password'],
-            $dados['text_name'],
             $dados['text_email'],
+            $dados['text_name'],
+            $dados['text_password'],
             $profile
         );
 
